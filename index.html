@@ -284,6 +284,22 @@
   }
   .cover-arduino { background: radial-gradient(circle at 30% 30%, rgba(20, 184, 166, 0.35), transparent 60%), linear-gradient(135deg, #0b3b46, #0f172a); }
   .cover-c { background: radial-gradient(circle at 70% 30%, rgba(129, 140, 248, 0.4), transparent 60%), linear-gradient(135deg, #1e1b4b, #0f172a); }
+  .cover-python { background: radial-gradient(circle at 20% 15%, rgba(56, 189, 248, 0.35), transparent 60%), linear-gradient(135deg, #0c2a4a, #0f172a); padding: 56px 28px 28px; }
+  /* Projeto em destaque, ocupando a linha inteira */
+  .project.wide { grid-column: 1 / -1; flex-direction: row; }
+  .project.wide .project-cover { flex: 0 0 52%; height: auto; min-height: 300px; border-bottom: 0; border-right: 1px solid var(--border); }
+  .app-window { width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid rgba(148, 163, 184, 0.25); box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.7); transition: transform .4s; }
+  .project.wide:hover .app-window { transform: scale(1.02); }
+  .app-bar { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #2b2d31; }
+  .app-bar i { width: 9px; height: 9px; border-radius: 50%; display: block; background: #4b5563; }
+  .app-bar span { margin-left: 8px; font-size: 11px; color: #cbd5e1; }
+  .app-window img { width: 100%; height: auto; }
+  .new-badge {
+    position: absolute; top: 14px; left: 14px;
+    font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.35);
+  }
   .project-cover pre { font-size: 12px; line-height: 1.35; color: rgba(226, 232, 240, 0.85); }
   .maze { display: grid; grid-template-columns: repeat(11, 14px); gap: 3px; transform: rotate(-8deg) skewX(6deg); }
   .maze i { width: 14px; height: 14px; border-radius: 3px; background: rgba(94, 234, 212, 0.16); }
@@ -369,6 +385,8 @@
     .code-window { transform: none; }
     .skills-grid { grid-template-columns: repeat(2, 1fr); }
     .certs-grid, .repo-list { grid-template-columns: repeat(2, 1fr); }
+    .project.wide { flex-direction: column; }
+    .project.wide .project-cover { flex: none; min-height: 0; border-right: 0; border-bottom: 1px solid var(--border); }
   }
   @media (max-width: 760px) {
     .menu-btn { display: grid; }
@@ -595,6 +613,34 @@
     </div>
 
     <div class="projects-grid">
+      <article class="card project wide reveal">
+        <div class="project-cover cover-python">
+          <span class="new-badge">Novo</span>
+          <span class="lang-badge"><i style="background:#3572A5"></i>Python · Tkinter</span>
+          <div class="app-window">
+            <div class="app-bar" aria-hidden="true"><i></i><i></i><i></i><span>Support Center</span></div>
+            <img src="assets/support-center.png" width="1100" height="300" loading="lazy" alt="Tela do Support Center com a tabela de tickets">
+          </div>
+        </div>
+        <div class="project-body">
+          <h3>Support Center</h3>
+          <p>Sistema de help desk com interface gráfica. Clientes abrem chamados, que são atribuídos a técnicos e resolvidos por eles, tudo acompanhado numa tabela em tempo real.</p>
+          <ul>
+            <li>Clientes e técnicos modelados com herança (POO)</li>
+            <li>Login e permissões: só técnicos resolvem tickets</li>
+            <li>Ciclo do ticket: aberto → em atendimento → concluído</li>
+            <li>Interface separada da regra de negócio</li>
+          </ul>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Tkinter</span><span class="chip">POO</span><span class="chip">Herança</span></div>
+          <div class="project-links">
+            <a class="link-sm" href="https://github.com/samuelcolpo/support-center-tkinter" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              Ver código
+            </a>
+          </div>
+        </div>
+      </article>
+
       <article class="card project reveal">
         <div class="project-cover cover-arduino">
           <span class="lang-badge"><i style="background:#f34b7d"></i>C++ · Arduino</span>
@@ -843,7 +889,7 @@
   }
 
   /* ---------- Outros repositórios (automático) ---------- */
-  var DESTAQUES = ['joystick-labyrinth-game', 'save-the-stickman', 'samuelcolpo', 'samuelcolpo.github.io'];
+  var DESTAQUES = ['support-center-tkinter', 'joystick-labyrinth-game', 'save-the-stickman', 'samuelcolpo', 'samuelcolpo.github.io'];
   fetch('https://api.github.com/users/samuelcolpo/repos?sort=updated&per_page=30')
     .then(function (r) { return r.ok ? r.json() : []; })
     .then(function (repos) {
