@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Samuel Colpo | Ciência da Computação · IA e Dados</title>
+<meta name="description" content="Portfólio de Samuel Colpo, estudante de Ciência da Computação na URI com foco em Inteligência Artificial, Dados e Segurança da Informação.">
+<meta property="og:title" content="Samuel Colpo | Ciência da Computação · IA e Dados">
+<meta property="og:description" content="Estudante de Ciência da Computação na URI com foco em Inteligência Artificial, Dados e Segurança da Informação.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0f1c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%2338bdf8'%3ESC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  // Aplica o tema salvo antes de desenhar a página (evita "piscar").
+  (function () {
+    var t = localStorage.getItem('tema');
+    if (!t) t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+<style>
+  :root {
+    --bg: #0a0f1c;
+    --bg-soft: #0f172a;
+    --card: rgba(148, 163, 184, 0.05);
+    --card-hover: rgba(148, 163, 184, 0.09);
+    --border: rgba(148, 163, 184, 0.14);
+    --border-strong: rgba(148, 163, 184, 0.28);
+    --text: #e2e8f0;
+    --heading: #f8fafc;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --accent-2: #818cf8;
+    --accent-ink: #0a0f1c;
+    --ok: #34d399;
+    --glow-1: rgba(56, 189, 248, 0.16);
+    --glow-2: rgba(129, 140, 248, 0.14);
+    --grid: rgba(148, 163, 184, 0.06);
+    --nav-bg: rgba(10, 15, 28, 0.72);
+    --shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+  [data-theme="light"] {
+    --bg: #f8fafc;
+    --bg-soft: #f1f5f9;
+    --card: #ffffff;
+    --card-hover: #ffffff;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --text: #334155;
+    --heading: #0f172a;
+    --muted: #64748b;
+    --accent: #0284c7;
+    --accent-2: #4f46e5;
+    --accent-ink: #ffffff;
+    --ok: #059669;
+    --glow-1: rgba(2, 132, 199, 0.10);
+    --glow-2: rgba(79, 70, 229, 0.08);
+    --grid: rgba(15, 23, 42, 0.05);
+    --nav-bg: rgba(248, 250, 252, 0.8);
+    --shadow: 0 20px 45px -25px rgba(15, 23, 42, 0.25);
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background .3s, color .3s;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: -2;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(600px 400px at 15% 10%, var(--glow-1), transparent 70%),
+      radial-gradient(500px 380px at 85% 25%, var(--glow-2), transparent 70%);
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+
+  .container { width: min(1120px, 100% - 48px); margin-inline: auto; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  /* ---------- Navegação ---------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    background: var(--nav-bg);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s, background .3s;
+  }
+  .nav.scrolled { border-bottom-color: var(--border); }
+  .nav .container { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--heading); letter-spacing: -0.01em; }
+  .brand .logo {
+    width: 34px; height: 34px; border-radius: 9px;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff; font-size: 14px; font-weight: 800;
+  }
+  .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+  .nav-links a {
+    font-size: 14px; font-weight: 500; color: var(--muted);
+    padding: 8px 14px; border-radius: 8px; transition: color .2s, background .2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--heading); background: var(--card-hover); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .icon-btn {
+    width: 38px; height: 38px; border-radius: 10px;
+    display: grid; place-items: center;
+    border: 1px solid var(--border); background: var(--card);
+    color: var(--text); cursor: pointer; transition: border-color .2s, color .2s;
+  }
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .icon-btn svg { width: 18px; height: 18px; }
+  .theme-btn .sun { display: none; }
+  [data-theme="light"] .theme-btn .sun { display: block; }
+  [data-theme="light"] .theme-btn .moon { display: none; }
+  .menu-btn { display: none; }
+
+  /* ---------- Botões ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 15px; font-weight: 600;
+    padding: 12px 20px; border-radius: 10px;
+    border: 1px solid var(--border-strong);
+    color: var(--heading); background: var(--card);
+    transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
+  }
+  .btn svg { width: 18px; height: 18px; }
+  .btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-color: transparent; color: #fff;
+    box-shadow: 0 10px 30px -10px var(--accent);
+  }
+  .btn-primary:hover { box-shadow: 0 14px 34px -10px var(--accent); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 150px 0 90px; }
+  .hero .container { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 500; color: var(--text);
+    padding: 7px 14px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--card);
+    margin-bottom: 26px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); position: relative; }
+  .dot::after {
+    content: ''; position: absolute; inset: -4px; border-radius: 50%;
+    border: 2px solid var(--ok); opacity: 0; animation: ping 2s infinite;
+  }
+  @keyframes ping { 0% { transform: scale(.6); opacity: .8; } 100% { transform: scale(1.6); opacity: 0; } }
+  h1 {
+    font-size: clamp(40px, 6vw, 66px); line-height: 1.05; font-weight: 800;
+    letter-spacing: -0.035em; color: var(--heading);
+  }
+  .grad {
+    background: linear-gradient(120deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .typed-line { margin-top: 18px; font-size: clamp(16px, 2vw, 19px); color: var(--accent); min-height: 30px; }
+  .typed-line .prompt { color: var(--muted); }
+  .caret { display: inline-block; width: 9px; height: 1.1em; background: var(--accent); vertical-align: -3px; margin-left: 3px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero p.lead { margin-top: 18px; font-size: 18px; color: var(--muted); max-width: 540px; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero-stats { display: flex; gap: 36px; margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--border); max-width: 520px; }
+  .stat b { display: block; font-size: 28px; font-weight: 800; color: var(--heading); letter-spacing: -0.02em; }
+  .stat span { font-size: 13px; color: var(--muted); }
+
+  .code-window {
+    border-radius: 16px; overflow: hidden;
+    background: #0b1222; border: 1px solid rgba(148, 163, 184, 0.18);
+    box-shadow: var(--shadow), 0 0 0 1px rgba(56, 189, 248, 0.05), 0 30px 80px -30px rgba(56, 189, 248, 0.35);
+    transform: perspective(1200px) rotateY(-6deg) rotateX(3deg);
+    transition: transform .5s;
+  }
+  .code-window:hover { transform: perspective(1200px) rotateY(0) rotateX(0); }
+  .code-bar { display: flex; align-items: center; gap: 8px; padding: 13px 16px; background: #0f172a; border-bottom: 1px solid rgba(148, 163, 184, 0.12); }
+  .code-bar i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+  .code-bar i:nth-child(1) { background: #f87171; }
+  .code-bar i:nth-child(2) { background: #fbbf24; }
+  .code-bar i:nth-child(3) { background: #34d399; }
+  .code-bar span { margin-left: 10px; font-size: 12px; color: #64748b; }
+  .code-window pre { padding: 22px 24px 26px; font-size: 13.5px; line-height: 1.85; color: #cbd5e1; overflow-x: auto; }
+  .c-kw { color: #c084fc; } .c-cls { color: #38bdf8; } .c-str { color: #86efac; }
+  .c-fn { color: #fbbf24; } .c-cm { color: #64748b; font-style: italic; } .c-self { color: #f472b6; }
+
+  /* ---------- Seções ---------- */
+  section { padding: 96px 0; }
+  .section-head { margin-bottom: 48px; max-width: 640px; }
+  .eyebrow { font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
+  .section-head h2 { margin-top: 10px; font-size: clamp(30px, 4vw, 40px); line-height: 1.15; font-weight: 800; letter-spacing: -0.03em; color: var(--heading); }
+  .section-head p { margin-top: 14px; color: var(--muted); font-size: 17px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    transition: border-color .25s, transform .25s, background .25s, box-shadow .25s;
+  }
+  [data-theme="light"] .card { box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04); }
+  .card:hover { border-color: var(--border-strong); background: var(--card-hover); }
+
+  /* Sobre */
+  .about-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: start; }
+  .about-text p { font-size: 17px; margin-bottom: 18px; }
+  .about-text strong { color: var(--heading); font-weight: 600; }
+  .focus-list { display: grid; gap: 14px; }
+  .focus { display: flex; gap: 16px; padding: 20px; }
+  .focus .ico {
+    flex: none; width: 44px; height: 44px; border-radius: 12px;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(129, 140, 248, 0.16));
+    color: var(--accent);
+  }
+  .focus .ico svg { width: 22px; height: 22px; }
+  .focus h3 { font-size: 16px; color: var(--heading); font-weight: 700; }
+  .focus p { font-size: 14.5px; color: var(--muted); margin-top: 3px; }
+
+  /* Trajetória */
+  .timeline { position: relative; display: grid; gap: 18px; padding-left: 34px; }
+  .timeline::before { content: ''; position: absolute; left: 9px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(var(--accent), var(--accent-2), transparent); border-radius: 2px; }
+  .t-item { position: relative; padding: 22px 24px; }
+  .t-item::before {
+    content: ''; position: absolute; left: -32px; top: 28px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--bg); border: 3px solid var(--accent);
+  }
+  .t-item.past::before { border-color: var(--border-strong); }
+  .t-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+  .t-item h3 { font-size: 17px; color: var(--heading); font-weight: 700; }
+  .t-org { color: var(--accent); font-weight: 600; font-size: 15px; }
+  .t-date { font-size: 13px; color: var(--muted); }
+  .t-item p { color: var(--muted); font-size: 15px; margin-top: 8px; }
+  .tag {
+    display: inline-block; font-size: 11.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 6px; margin-right: 8px; vertical-align: 2px;
+    background: rgba(56, 189, 248, 0.12); color: var(--accent);
+  }
+  .tag.alt { background: rgba(129, 140, 248, 0.14); color: var(--accent-2); }
+
+  /* Habilidades */
+  .tech-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; padding: 26px; margin-bottom: 22px; }
+  .tech-strip figure { display: grid; justify-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); width: 74px; }
+  .tech-strip img { width: 48px; height: 48px; transition: transform .25s; }
+  .tech-strip figure:hover img { transform: translateY(-4px); }
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .skill { padding: 24px; }
+  .skill h3 { font-size: 15px; color: var(--heading); font-weight: 700; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .skill h3 svg { width: 18px; height: 18px; color: var(--accent); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-size: 13px; padding: 5px 11px; border-radius: 8px; background: var(--bg-soft); border: 1px solid var(--border); color: var(--text); }
+  .skill.learning { border-style: dashed; }
+  .skill.learning .chip { border-style: dashed; }
+
+  /* Projetos */
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .project { overflow: hidden; display: flex; flex-direction: column; }
+  .project:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .project-cover {
+    height: 170px; position: relative; overflow: hidden;
+    display: grid; place-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .cover-arduino { background: radial-gradient(circle at 30% 30%, rgba(20, 184, 166, 0.35), transparent 60%), linear-gradient(135deg, #0b3b46, #0f172a); }
+  .cover-c { background: radial-gradient(circle at 70% 30%, rgba(129, 140, 248, 0.4), transparent 60%), linear-gradient(135deg, #1e1b4b, #0f172a); }
+  .project-cover pre { font-size: 12px; line-height: 1.35; color: rgba(226, 232, 240, 0.85); }
+  .maze { display: grid; grid-template-columns: repeat(11, 14px); gap: 3px; transform: rotate(-8deg) skewX(6deg); }
+  .maze i { width: 14px; height: 14px; border-radius: 3px; background: rgba(94, 234, 212, 0.16); }
+  .maze i.w { background: rgba(94, 234, 212, 0.75); }
+  .maze i.b { background: #fbbf24; border-radius: 50%; box-shadow: 0 0 12px #fbbf24; }
+  .lang-badge {
+    position: absolute; top: 14px; right: 14px;
+    font-size: 12px; font-weight: 600; color: #e2e8f0;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(148, 163, 184, 0.25);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .lang-badge i { width: 8px; height: 8px; border-radius: 50%; display: block; }
+  .project-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+  .project h3 { font-size: 20px; color: var(--heading); font-weight: 700; letter-spacing: -0.01em; }
+  .project p { color: var(--muted); font-size: 15px; margin-top: 10px; flex: 1; }
+  .project ul { list-style: none; margin: 16px 0 4px; display: grid; gap: 6px; }
+  .project li { font-size: 14px; color: var(--text); display: flex; gap: 10px; }
+  .project li::before { content: '›'; color: var(--accent); font-weight: 700; }
+  .project .chips { margin-top: 18px; }
+  .project-links { display: flex; gap: 10px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border); }
+  .link-sm { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 600; color: var(--accent); }
+  .link-sm svg { width: 16px; height: 16px; }
+  .link-sm:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .more-repos { margin-top: 28px; }
+  .more-repos h3 { font-size: 15px; color: var(--muted); font-weight: 600; margin-bottom: 14px; }
+  .repo-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .repo { padding: 18px; display: block; }
+  .repo b { color: var(--heading); font-size: 15px; display: block; }
+  .repo span { color: var(--muted); font-size: 13.5px; }
+  .center { text-align: center; margin-top: 32px; }
+
+  /* Certificações */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+  .filter {
+    font: 500 14px 'Inter', sans-serif; cursor: pointer;
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--card); color: var(--muted);
+    transition: all .2s;
+  }
+  .filter:hover { color: var(--heading); border-color: var(--border-strong); }
+  .filter.active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cert { padding: 22px; display: flex; gap: 16px; align-items: flex-start; }
+  .cert.hide { display: none; }
+  .issuer {
+    flex: none; width: 46px; height: 46px; border-radius: 12px;
+    display: grid; place-items: center;
+    font-weight: 800; font-size: 15px; color: #fff;
+  }
+  .cert h3 { font-size: 15.5px; line-height: 1.35; color: var(--heading); font-weight: 600; }
+  .cert .meta { font-size: 13.5px; color: var(--muted); margin-top: 6px; }
+  .cert .cat { margin-top: 10px; }
+
+  /* Contato */
+  .contact-card {
+    padding: 64px 40px; text-align: center; position: relative; overflow: hidden;
+    background:
+      radial-gradient(500px 220px at 50% 0%, var(--glow-1), transparent 70%),
+      var(--card);
+  }
+  .contact-card h2 { font-size: clamp(30px, 4.5vw, 44px); font-weight: 800; letter-spacing: -0.03em; color: var(--heading); line-height: 1.15; }
+  .contact-card p { color: var(--muted); font-size: 17px; max-width: 560px; margin: 16px auto 0; }
+  .contact-card .hero-ctas { justify-content: center; }
+
+  footer { padding: 36px 0 44px; border-top: 1px solid var(--border); margin-top: 40px; }
+  footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--muted); }
+  footer a:hover { color: var(--accent); }
+
+  /* Animação ao rolar */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* ---------- Responsivo ---------- */
+  @media (max-width: 980px) {
+    .hero .container, .about-grid { grid-template-columns: 1fr; }
+    .code-window { transform: none; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .certs-grid, .repo-list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .menu-btn { display: grid; }
+    .nav-links {
+      position: fixed; top: 68px; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 2px;
+      padding: 12px 16px 18px; background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      opacity: 0; visibility: hidden; transform: translateY(-10px);
+      transition: opacity .25s, transform .25s, visibility .25s;
+    }
+    .nav-links.open { opacity: 1; visibility: visible; transform: none; }
+    .nav-links a { padding: 12px 14px; font-size: 16px; }
+    .hero { padding: 120px 0 64px; }
+    .code-window pre { font-size: 11.5px; padding: 18px 16px 20px; }
+    .hero-stats { gap: 24px; }
+    section { padding: 72px 0; }
+    .projects-grid, .skills-grid, .certs-grid, .repo-list { grid-template-columns: 1fr; }
+    .contact-card { padding: 48px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVEGAÇÃO ============ -->
+<header class="nav" id="nav">
+  <div class="container">
+    <a href="#inicio" class="brand" aria-label="Início"><span class="logo">SC</span><span>Samuel Colpo</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#trajetoria">Trajetória</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#certificacoes">Certificações</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn theme-btn" id="themeBtn" aria-label="Alternar tema claro/escuro">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="inicio">
+  <div class="container">
+    <div class="reveal">
+      <span class="pill"><span class="dot"></span>Aberto a oportunidades de aprendizado e colaboração</span>
+      <h1>Olá, eu sou<br><span class="grad">Samuel Colpo</span></h1>
+      <div class="typed-line mono" aria-live="polite"><span class="prompt">&gt; </span><span id="typed">Estudante de Ciência da Computação</span><span class="caret"></span></div>
+      <p class="lead">Estudante de Ciência da Computação na URI, construindo carreira em Inteligência Artificial e Dados. Gosto de transformar dados em informação útil e usar tecnologia para resolver problemas reais.</p>
+      <div class="hero-ctas">
+        <a href="#projetos" class="btn btn-primary">Ver projetos
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/samcolpo/" target="_blank" rel="noopener" class="btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/samuelcolpo" target="_blank" rel="noopener" class="btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>9</b><span>certificações</span></div>
+        <div class="stat"><b>3</b><span>áreas de foco</span></div>
+        <div class="stat"><b>2029</b><span>formatura prevista</span></div>
+      </div>
+    </div>
+
+    <div class="code-window reveal" aria-hidden="true">
+      <div class="code-bar"><i></i><i></i><i></i><span class="mono">samuel.py</span></div>
+<pre class="mono"><span class="c-kw">class</span> <span class="c-cls">Samuel</span>:
+    nome      = <span class="c-str">"Samuel Colpo"</span>
+    curso     = <span class="c-str">"Ciência da Computação @ URI"</span>
+    foco      = [<span class="c-str">"IA"</span>, <span class="c-str">"Dados"</span>]
+    estudando = [<span class="c-str">"Machine Learning"</span>,
+                 <span class="c-str">"Pentest"</span>, <span class="c-str">"LGPD"</span>]
+    local     = <span class="c-str">"Rio Grande do Sul, BR"</span>
+
+    <span class="c-kw">def</span> <span class="c-fn">objetivo</span>(<span class="c-self">self</span>):
+        <span class="c-cm"># dados → informação → solução</span>
+        <span class="c-kw">return</span> <span class="c-str">"Resolver problemas reais"</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOBRE ============ -->
+<section id="sobre">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Sobre mim</span>
+      <h2>Dados, inteligência artificial e segurança</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Sou estudante de <strong>Ciência da Computação</strong> na <strong>URI – Universidade Regional Integrada do Alto Uruguai e das Missões</strong>, com foco no desenvolvimento de carreira em <strong>Inteligência Artificial e Dados</strong>.</p>
+        <p>Tenho formação complementar em <strong>modelagem de dados, PostgreSQL e lógica de programação</strong>, e busco aprofundar meus conhecimentos em análise de dados, aprendizado de máquina e desenvolvimento de soluções com IA.</p>
+        <p>Também estudo <strong>Segurança da Informação</strong>: cibersegurança, hacking ético, pentest e LGPD. Considero a proteção e o uso responsável dos dados parte essencial de qualquer solução confiável.</p>
+        <p>Busco oportunidades para aplicar o que aprendo, ganhar experiência prática e crescer profissionalmente nas áreas de IA e Dados.</p>
+      </div>
+      <div class="focus-list">
+        <div class="card focus reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
+          <div><h3>Inteligência Artificial</h3><p>Aprendizado de máquina, IA generativa e desenvolvimento de soluções com IA.</p></div>
+        </div>
+        <div class="card focus reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+          <div><h3>Dados</h3><p>PostgreSQL, SQL e modelagem de dados para transformar dados em informação útil.</p></div>
+        </div>
+        <div class="card focus reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div><h3>Segurança da Informação</h3><p>Cibersegurança, redes, hacking ético, pentest e LGPD.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRAJETÓRIA ============ -->
+<section id="trajetoria">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Trajetória</span>
+      <h2>Formação e experiência</h2>
+    </div>
+    <div class="timeline">
+      <div class="card t-item reveal">
+        <div class="t-top">
+          <h3><span class="tag">Formação</span>Bacharelado em Ciência da Computação</h3>
+          <span class="t-date mono">ago/2024 – dez/2029</span>
+        </div>
+        <div class="t-org">URI – Universidade Regional Integrada do Alto Uruguai e das Missões</div>
+        <p>Competências trabalhadas no curso: linguagem C, PostgreSQL e fundamentos de programação.</p>
+      </div>
+      <div class="card t-item reveal">
+        <div class="t-top">
+          <h3><span class="tag alt">Experiência</span>Técnico autônomo</h3>
+          <span class="t-date mono">out/2025 – atual</span>
+        </div>
+        <div class="t-org">DSK Tech Solutions · Freelance</div>
+        <p>Manutenção de hardware de computadores, troca e reparo de telas e trabalhos com eletrônica.</p>
+      </div>
+      <div class="card t-item reveal">
+        <div class="t-top">
+          <h3><span class="tag alt">Experiência</span>Vendas</h3>
+          <span class="t-date mono">mar/2024 – atual</span>
+        </div>
+        <div class="t-org">Agropecuária Agrogalpão · Tempo integral</div>
+        <p>Atendimento ao cliente e trabalho em equipe.</p>
+      </div>
+      <div class="card t-item past reveal">
+        <div class="t-top">
+          <h3><span class="tag alt">Experiência</span>Jovem Aprendiz de Vendas</h3>
+          <span class="t-date mono">mar/2022 – mar/2023</span>
+        </div>
+        <div class="t-org">Lojas Quero-Quero S.A.</div>
+        <p>Atendimento, etiqueta ao telefone e trabalho em equipe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HABILIDADES ============ -->
+<section id="habilidades">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Habilidades</span>
+      <h2>Tecnologias e conhecimentos</h2>
+    </div>
+
+    <div class="card tech-strip reveal">
+      <figure><img src="https://skillicons.dev/icons?i=c" alt="" loading="lazy"><figcaption>C</figcaption></figure>
+      <figure><img src="https://skillicons.dev/icons?i=cpp" alt="" loading="lazy"><figcaption>C++</figcaption></figure>
+      <figure><img src="https://skillicons.dev/icons?i=python" alt="" loading="lazy"><figcaption>Python</figcaption></figure>
+      <figure><img src="https://skillicons.dev/icons?i=postgres" alt="" loading="lazy"><figcaption>PostgreSQL</figcaption></figure>
+      <figure><img src="https://skillicons.dev/icons?i=arduino" alt="" loading="lazy"><figcaption>Arduino</figcaption></figure>
+      <figure><img src="https://skillicons.dev/icons?i=linux" alt="" loading="lazy"><figcaption>Linux</figcaption></figure>
+      <figure><img src="https://skillicons.dev/icons?i=git" alt="" loading="lazy"><figcaption>Git</figcaption></figure>
+      <figure><img src="https://skillicons.dev/icons?i=vscode" alt="" loading="lazy"><figcaption>VS Code</figcaption></figure>
+    </div>
+
+    <div class="skills-grid">
+      <div class="card skill reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>Programação</h3>
+        <div class="chips"><span class="chip">C</span><span class="chip">C++</span><span class="chip">Python</span><span class="chip">Lógica de programação</span></div>
+      </div>
+      <div class="card skill reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>Dados</h3>
+        <div class="chips"><span class="chip">PostgreSQL</span><span class="chip">SQL</span><span class="chip">Modelagem de dados</span></div>
+      </div>
+      <div class="card skill reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Segurança e redes</h3>
+        <div class="chips"><span class="chip">Redes</span><span class="chip">Sistemas operacionais</span><span class="chip">Cibersegurança</span><span class="chip">LGPD</span></div>
+      </div>
+      <div class="card skill reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M6 14h12"/></svg>Hardware</h3>
+        <div class="chips"><span class="chip">Arduino</span><span class="chip">Eletrônica</span><span class="chip">Manutenção de hardware</span><span class="chip">Reparo de telas</span></div>
+      </div>
+    </div>
+
+    <div class="card skill learning reveal" style="margin-top:16px">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Estudando agora</h3>
+      <div class="chips"><span class="chip">Machine Learning</span><span class="chip">Análise de dados</span><span class="chip">IA generativa</span><span class="chip">Hacking ético</span><span class="chip">Pentest</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJETOS ============ -->
+<section id="projetos">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Projetos</span>
+      <h2>O que eu já construí</h2>
+      <p>Projetos de hardware e software publicados no meu GitHub.</p>
+    </div>
+
+    <div class="projects-grid">
+      <article class="card project reveal">
+        <div class="project-cover cover-arduino">
+          <span class="lang-badge"><i style="background:#f34b7d"></i>C++ · Arduino</span>
+          <div class="maze" aria-hidden="true" id="maze"></div>
+        </div>
+        <div class="project-body">
+          <h3>Labirinto físico com Arduino</h3>
+          <p>Labirinto de verdade cuja plataforma é inclinada por dois servomotores, controlados por botões direcionais que guiam a bolinha pelo circuito.</p>
+          <ul>
+            <li>Dificuldade ajustável em tempo real (resposta de 1 ms a 30 ms)</li>
+            <li>Limite de ângulo para proteger a estrutura física</li>
+            <li>Telemetria pela porta serial com ângulos e velocidade</li>
+          </ul>
+          <div class="chips"><span class="chip">C++</span><span class="chip">Arduino</span><span class="chip">Servomotores</span><span class="chip">Eletrônica</span></div>
+          <div class="project-links">
+            <a class="link-sm" href="https://github.com/samuelcolpo/joystick-labyrinth-game" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              Ver código
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card project reveal">
+        <div class="project-cover cover-c">
+          <span class="lang-badge"><i style="background:#8b9dc3"></i>C</span>
+<pre class="mono" aria-hidden="true">  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========
+ _ O R C A</pre>
+        </div>
+        <div class="project-body">
+          <h3>Save the Stickman</h3>
+          <p>Jogo da forca em C para o terminal, com sorteio aleatório de palavras e um banco de palavras em arquivo que o jogador pode ampliar durante a partida.</p>
+          <ul>
+            <li>Desenho do boneco e do progresso em ASCII</li>
+            <li>Palavras novas salvas permanentemente em arquivo</li>
+            <li>Validação que não penaliza letras repetidas</li>
+          </ul>
+          <div class="chips"><span class="chip">C</span><span class="chip">Manipulação de arquivos</span><span class="chip">Strings</span><span class="chip">Modularização</span></div>
+          <div class="project-links">
+            <a class="link-sm" href="https://github.com/samuelcolpo/save-the-stickman" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              Ver código
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Preenchido automaticamente com seus outros repositórios públicos do GitHub -->
+    <div class="more-repos" id="moreRepos" hidden>
+      <h3>Outros repositórios</h3>
+      <div class="repo-list" id="repoList"></div>
+    </div>
+
+    <div class="center reveal">
+      <a href="https://github.com/samuelcolpo?tab=repositories" target="_blank" rel="noopener" class="btn">Ver todos no GitHub
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CERTIFICAÇÕES ============ -->
+<section id="certificacoes">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Certificações</span>
+      <h2>Aprendizado contínuo</h2>
+    </div>
+    <div class="filters reveal" role="group" aria-label="Filtrar certificações">
+      <button class="filter active" data-f="todas">Todas</button>
+      <button class="filter" data-f="seg">Segurança</button>
+      <button class="filter" data-f="ia">IA</button>
+      <button class="filter" data-f="dados">Dados</button>
+      <button class="filter" data-f="base">Fundamentos</button>
+    </div>
+    <div class="certs-grid" id="certs"></div>
+  </div>
+</section>
+
+<!-- ============ CONTATO ============ -->
+<section id="contato">
+  <div class="container">
+    <div class="card contact-card reveal">
+      <span class="eyebrow">Contato</span>
+      <h2 style="margin-top:10px">Vamos conversar?</h2>
+      <p>Estou aberto a oportunidades de aprendizado e colaboração em projetos de Inteligência Artificial e Dados.</p>
+      <div class="hero-ctas">
+        <a href="https://www.linkedin.com/in/samcolpo/" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Falar no LinkedIn
+        </a>
+        <a href="https://github.com/samuelcolpo" target="_blank" rel="noopener" class="btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+        <!-- Para mostrar seu e-mail, troque SEU_EMAIL e apague as marcas de comentário:
+        <a href="mailto:SEU_EMAIL" class="btn">E-mail</a>
+        -->
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <span>© <span id="year">2026</span> Samuel Colpo · Rio Grande do Sul, Brasil</span>
+    <span><a href="https://www.linkedin.com/in/samcolpo/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/samuelcolpo" target="_blank" rel="noopener">GitHub</a></span>
+  </div>
+</footer>
+
+<script>
+  /* ---------- Certificações (edite aqui para adicionar novas) ---------- */
+  var CERTS = [
+    { t: 'Pre Security (SEC0)', org: 'TryHackMe', ano: 'jun/2026', cat: 'seg', cor: '#c11111', sigla: 'THM' },
+    { t: 'Inteligência Artificial para Cibersegurança', org: 'LinkedIn Learning', ano: 'jun/2025', cat: 'ia', cor: '#0a66c2', sigla: 'in' },
+    { t: 'Descubra a Inteligência Artificial Generativa', org: 'LinkedIn Learning', ano: 'jun/2025', cat: 'ia', cor: '#0a66c2', sigla: 'in' },
+    { t: 'Introduction to Cybersecurity', org: 'Cisco Networking Academy', ano: 'fev/2025', cat: 'seg', cor: '#049fd9', sigla: 'C' },
+    { t: 'Redes: dos conceitos iniciais à criação de uma intranet', org: 'Alura', ano: 'fev/2025', cat: 'base', cor: '#051933', sigla: 'A' },
+    { t: 'Conscientização de Segurança Cibernética', org: 'Solyd Offensive Security', ano: 'jan/2025', cat: 'seg', cor: '#111827', sigla: 'S' },
+    { t: 'Formação Modelagem de Dados', org: 'Alura', ano: 'nov/2024', cat: 'dados', cor: '#051933', sigla: 'A' },
+    { t: 'PostgreSQL', org: 'Alura', ano: 'set/2024', cat: 'dados', cor: '#051933', sigla: 'A' },
+    { t: 'Lógica de Programação', org: 'Alura', ano: 'ago/2024', cat: 'base', cor: '#051933', sigla: 'A' }
+  ];
+  var CAT_NOME = { seg: 'Segurança', ia: 'IA', dados: 'Dados', base: 'Fundamentos' };
+
+  var certsEl = document.getElementById('certs');
+  CERTS.forEach(function (c) {
+    var el = document.createElement('div');
+    el.className = 'card cert reveal';
+    el.dataset.cat = c.cat;
+    el.innerHTML =
+      '<div class="issuer" style="background:' + c.cor + '">' + c.sigla + '</div>' +
+      '<div><h3>' + c.t + '</h3><div class="meta">' + c.org + ' · ' + c.ano + '</div>' +
+      '<div class="cat"><span class="tag' + (c.cat === 'ia' || c.cat === 'base' ? ' alt' : '') + '">' + CAT_NOME[c.cat] + '</span></div></div>';
+    certsEl.appendChild(el);
+  });
+
+  document.querySelectorAll('.filter').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.filter').forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active');
+      var f = b.dataset.f;
+      certsEl.querySelectorAll('.cert').forEach(function (c) {
+        c.classList.toggle('hide', f !== 'todas' && c.dataset.cat !== f);
+      });
+    });
+  });
+
+  /* ---------- Labirinto decorativo ---------- */
+  var MAZE = [
+    'wwwwwwwwwww',
+    'w...w.....w',
+    'w.w.w.www.w',
+    'w.w...w...w',
+    'w.wwwww.www',
+    'w...b.w...w',
+    'www.w.www.w',
+    'w...w.....w',
+    'wwwwwwwwwww'
+  ];
+  var mazeEl = document.getElementById('maze');
+  MAZE.join('').split('').forEach(function (ch) {
+    var i = document.createElement('i');
+    if (ch === 'w') i.className = 'w';
+    if (ch === 'b') i.className = 'b';
+    mazeEl.appendChild(i);
+  });
+
+  /* ---------- Tema ---------- */
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var r = document.documentElement;
+    var novo = r.dataset.theme === 'dark' ? 'light' : 'dark';
+    r.dataset.theme = novo;
+    localStorage.setItem('tema', novo);
+  });
+
+  /* ---------- Menu no celular ---------- */
+  var menuBtn = document.getElementById('menuBtn');
+  var navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', function () {
+    var aberto = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', aberto);
+  });
+  navLinks.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); });
+  });
+
+  /* ---------- Barra ao rolar + link ativo ---------- */
+  var nav = document.getElementById('nav');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+  var secoes = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  function aoRolar() {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+    var atual = -1;
+    secoes.forEach(function (s, i) { if (s && s.getBoundingClientRect().top < 140) atual = i; });
+    links.forEach(function (a, i) { a.classList.toggle('active', i === atual); });
+  }
+  window.addEventListener('scroll', aoRolar, { passive: true });
+  aoRolar();
+
+  /* ---------- Texto digitando ---------- */
+  var FRASES = [
+    'Estudante de Ciência da Computação',
+    'Construindo carreira em IA e Dados',
+    'PostgreSQL e Modelagem de Dados',
+    'Estudando Segurança da Informação'
+  ];
+  var typed = document.getElementById('typed');
+  var reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduz) {
+    var fi = 0, ci = FRASES[0].length, apagando = true;
+    setTimeout(function passo() {
+      var f = FRASES[fi];
+      if (apagando) {
+        ci--;
+        if (ci <= 0) { apagando = false; fi = (fi + 1) % FRASES.length; }
+      } else {
+        ci++;
+        if (ci >= FRASES[fi].length) { apagando = true; typed.textContent = FRASES[fi]; return setTimeout(passo, 2200); }
+      }
+      typed.textContent = FRASES[fi].slice(0, ci);
+      setTimeout(passo, apagando ? 35 : 70);
+    }, 2600);
+  }
+
+  /* ---------- Aparecer ao rolar ---------- */
+  var itens = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    itens.forEach(function (el) { io.observe(el); });
+  } else {
+    itens.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* ---------- Outros repositórios (automático) ---------- */
+  var DESTAQUES = ['joystick-labyrinth-game', 'save-the-stickman', 'samuelcolpo', 'samuelcolpo.github.io'];
+  fetch('https://api.github.com/users/samuelcolpo/repos?sort=updated&per_page=30')
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .then(function (repos) {
+      var outros = repos.filter(function (r) { return !r.fork && r.size > 0 && DESTAQUES.indexOf(r.name) === -1; }).slice(0, 6);
+      if (!outros.length) return;
+      var lista = document.getElementById('repoList');
+      outros.forEach(function (r) {
+        var a = document.createElement('a');
+        a.className = 'card repo';
+        a.href = r.html_url; a.target = '_blank'; a.rel = 'noopener';
+        var b = document.createElement('b'); b.textContent = r.name;
+        var s = document.createElement('span'); s.textContent = (r.description || 'Sem descrição') + (r.language ? ' · ' + r.language : '');
+        a.appendChild(b); a.appendChild(s);
+        lista.appendChild(a);
+      });
+      document.getElementById('moreRepos').hidden = false;
+    })
+    .catch(function () {});
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
